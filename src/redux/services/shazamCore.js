@@ -14,6 +14,10 @@ export const shazamCoreApi = createApi({
   }),
   endpoints: (builder) => ({
     getTopCharts: builder.query({ query: () => "/charts/world" }),
+    getSongsByGenre: builder.query({
+      query: (genre) => `/charts/genre-world?genre_code=${genre}`,
+    }),
+    getTopArtists: builder.query({ query: () => "/charts/world" }),
     getSongDetails: builder.query({
       query: (songid) => `/tracks/details?track_id=${songid}`,
     }),
@@ -24,15 +28,22 @@ export const shazamCoreApi = createApi({
       query: (artistId) => `/artists/details?artist_id=${artistId}`,
     }),
     getSongsByCountry: builder.query({
-      query: (countryCode) => `charts/country?country_code=${countryCode}`,
+      query: (countryCode) => `/charts/country?country_code=${countryCode}`,
+    }),
+    getsongsBySearch: builder.query({
+      query: (searchTerm) =>
+        `/search/multi?search_type=SONGS_ARTISTS&query=${searchTerm}`,
     }),
   }),
 });
 
 export const {
   useGetTopChartsQuery,
+  useGetSongsByGenreQuery,
+  useGetTopArtistsQuery,
   useGetSongDetailsQuery,
   useGetSongRelatedQuery,
   useGetArtistDetailsQuery,
   useGetSongsByCountryQuery,
+  useGetsongsBySearchQuery,
 } = shazamCoreApi;
